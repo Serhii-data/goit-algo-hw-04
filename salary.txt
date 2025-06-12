@@ -1,4 +1,4 @@
 Alex Korp,3000.12
 Nikita Borisenko,2000.02
 Sitarama Raju,1000.13
-Sitarama Raju,1002
+Serhii Rudenko,1002
