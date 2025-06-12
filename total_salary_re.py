@@ -7,21 +7,24 @@ def total_salary(path: str) -> tuple:
     :param path: шлях до текстового файлу
     :return: Повертає кортеж з двох чисел: загальної суми зарплат та середньої зарплати
     """
-    total_sum_salary, average_salary = (0, 0) # Присвоюємо початкові значення змінним
+    total_sum_salary, average_salary = (0, 0)
     try:
-        pattern = r'\d+'
-        with open(path, mode='r', encoding='utf-8') as file: # Відкриваємо текстовий файл в режимі читання
-            salary_string = re.findall(pattern, file.read()) # Зчитуємо інформацію з файлу та знаходимо всі числові дані у файлі
-    except FileNotFoundError: # Оброблюємо помилку на відсутність вказаного файла
+        pattern = r'\d+\.\d*|\d+'
+        with open(path, mode='r', encoding='utf-8') as file:
+            salary_string = re.findall(pattern, file.read())
+        # Формуємо список всіх зарплат
+        salary = [float(developer_salary) for developer_salary in salary_string]
+        total_sum_salary = sum(salary)
+        average_salary = total_sum_salary / len(salary)
+    # Оброблюємо винятки
+    except FileNotFoundError:
         print(f"The file {path} not found.")
-    except UnicodeDecodeError: # Оброблюємо помилку на невідповідність кодування
+    except UnicodeDecodeError:
         print(f"The file {path} does not match the UTF-8 encoding.")
-    else:
-        salary = [int(developer_salary) for developer_salary in salary_string]  # Конвертуємо зарплату в текстовому вигляді в число
-        total_sum_salary = sum(salary)  # Сума зарплат розробників
-        average_salary = int(total_sum_salary / len(salary))  # Середня зарплатня розробників
+    except ZeroDivisionError as e:
+        print(e)
     finally:
-        return total_sum_salary, average_salary # Повертаємо значення
+        return total_sum_salary, average_salary
 
 
 if __name__ == '__main__':

@@ -3,16 +3,16 @@ def get_cats_info(path: str):
     keys = ["id", "name", "age"] # Список ключів про котів
     cats_info_result = []
     try:
-        with open(path, mode='r', encoding='utf-8') as file: # Відкриття файлу по шляху path
+        with open(path, mode='r', encoding='utf-8') as file:
             for line in file.readlines(): 
-                value_cat = line.strip().split(",") # Список інформації про кота
+                value_cat = line.strip().split(",")
 
                 if len(value_cat) != len(keys):
                     raise ValueError("There must be 3 values")
 
                 info_about_the_cat = {}
                 for inx, value in enumerate(value_cat):
-                    info_about_the_cat[keys[inx]] = value # Формуємо інфо-словник по кожному коту та додаємо в список
+                    info_about_the_cat[keys[inx]] = value
                 cats_info_result.append(info_about_the_cat)
     # Оброблюємо винятки
     except FileNotFoundError:
